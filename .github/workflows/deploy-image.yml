@@ -27,7 +27,7 @@ jobs:
         run: |
            echo $CR_PAT | docker login ghcr.io -u Kritika786 --password-stdin
         env:
-        CR_PAT: ${{ secrets.CR_PAT }}
+         CR_PAT: ${{ secrets.CR_PAT }}
       - name: Push image
         run: |
           docker build . --tag ghcr.io/kritika786/sample-microservices-packages/hello-world:latest
