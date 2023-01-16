@@ -23,7 +23,16 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Build the hello-world Docker image
+        run: |
+           echo $CR_PAT | docker login ghcr.io -u Kritika786 --password-stdin
+        env:
+        CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Push image
+        run: |
+          docker build . --tag ghcr.io/kritika786/sample-microservices-packages/hello-world:latest
+          docker run ghcr.io/kritika786/sample-microservices-packages/hello-world:latest
+          docker push ghcr.io/kritika786/sample-microservices-packages/hello-world:latest
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
